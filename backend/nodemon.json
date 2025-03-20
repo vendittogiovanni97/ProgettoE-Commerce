@@ -1,0 +1,7 @@
+{
+  "scripts": {
+    "dev": "nodemon --ext ts --exec ts-node src/server.ts"
+  },
+  "watch": [".env", "src/"],
+  "ext": ".ts,.json,.env"
+}
