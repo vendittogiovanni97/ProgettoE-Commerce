@@ -1,11 +1,12 @@
-import express from "express";
 import dotenv from "dotenv";
+
+dotenv.config();
+
+import express from "express";
 import cors from "cors";
 import expressSession from "express-session";
 import connectDB from "./db/dbclient";
-import addrouter from "./routers";
-
-dotenv.config();
+import addrouter from "./routes";
 
 const port = process.env.PORT;
 
@@ -25,7 +26,7 @@ app.use(
     cookie: {
       maxAge: 86400000,
       sameSite: "strict",
-      secure: false,
+      secure: process.env.NODE_ENV === 'production',
     },
   })
 );

@@ -8,10 +8,10 @@ import updateProductQuantity from "../controllers/private/productByID";
 const routesPrivate = (app: Router) => {
   const router = Router();
 
-  router.get("user", [isAuthenticated], getUserInfo);
-  router.get("products", [isAuthenticated], getAllProduct);
-  router.post("product/:id", [isAuthenticated], updateProductQuantity);
-  app.use("/", router);
+  router.get("user", getUserInfo);
+  router.get("products", getAllProduct);
+  router.post("product/:id", updateProductQuantity);
+  app.use("/", [isAuthenticated], router);
 };
 
 export default routesPrivate;

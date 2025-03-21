@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --ext ts --exec ts-node src/server.ts"
+    "dev": "nodemon src/server.ts"
   },
   "author": "",
   "license": "ISC",
