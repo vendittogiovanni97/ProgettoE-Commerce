@@ -16,16 +16,21 @@ declare module "express-session" {
 export const isAdmin = (req: Request, res: Response, next: NextFunction) => {
   // Prima verifica l'autenticazione
   isAuthenticated(req, res, (err?: any) => {
-    if (err) return next(err);
+    if (err) {
+      next(err)
+      return;
+    }
 
     // Poi verifica se è admin
     if (req.session.user && req.session.user.isAdmin === true) {
-      return next();
+      next();
+      return;
     }
 
     // Se l'utente non è admin, restituisci errore 403 Forbidden
-    return res.status(403).json({
+    res.status(403).json({
       error: "Accesso negato. Sono richiesti privilegi di amministratore.",
     });
+    return;
   });
 };
