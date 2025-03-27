@@ -1,0 +1,890 @@
+/* Reset Base & Font */
+:root {
+  /* Palette Cartoon/Futuristic */
+  --primary-color: #6a11cb; /* Viola Intenso */
+  --primary-color-light: #9b59b6; /* Viola più chiaro per gradienti/hover */
+  --secondary-color: #2575fc; /* Blu Elettrico */
+  --accent-color: #ff4081; /* Rosa/Magenta Acceso */
+  --success-color: #00c851; /* Verde Brillante */
+  --warning-color: #ffbf00; /* Giallo/Arancio */
+  --light-bg: #fdf6ff; /* Sfondo molto chiaro, quasi bianco con una punta di viola */
+  --element-bg: #ffffff; /* Bianco per card e elementi principali */
+  --dark-text: #333; /* Testo scuro ma non nero puro */
+  --light-text: #ffffff;
+  --border-color: rgba(0, 0, 0, 0.08); /* Bordo molto sottile e leggero */
+  --shadow-color-soft: rgba(
+    106,
+    17,
+    203,
+    0.15
+  ); /* Ombra soft basata sul primario */
+  --shadow-color-medium: rgba(106, 17, 203, 0.25); /* Ombra media */
+
+  --sidebar-width: 270px;
+  --sidebar-width-collapsed: 80px;
+  --navbar-height: 70px;
+  --base-font-size: 16px;
+  --border-radius-large: 20px;
+  --border-radius-medium: 12px;
+  --border-radius-small: 8px;
+  --transition-fast: 0.2s ease-out;
+  --transition-medium: 0.3s ease-out;
+  --transition-slow: 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Bounce effect */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif; /* Nuovo Font */
+}
+
+body {
+  font-size: var(--base-font-size);
+  color: var(--dark-text);
+  background-color: var(--light-bg);
+  line-height: 1.6;
+  overflow-x: hidden; /* Previene scroll orizzontale */
+}
+
+a {
+  text-decoration: none;
+  color: var(--secondary-color);
+  transition: color var(--transition-fast);
+}
+a:hover {
+  color: var(--primary-color);
+}
+
+ul {
+  list-style: none;
+}
+
+/* Layout Principale */
+.app-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar - Stile Rivisitato */
+.sidebar {
+  width: var(--sidebar-width);
+  background: linear-gradient(
+    180deg,
+    var(--primary-color) 0%,
+    var(--secondary-color) 100%
+  ); /* Gradiente! */
+  color: var(--light-text);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  transition: width var(--transition-medium) ease-out;
+  overflow: hidden; /* Nasconde tutto ciò che sborda */
+  z-index: 1000;
+  border-top-right-radius: var(--border-radius-large); /* Angolo arrotondato */
+  border-bottom-right-radius: var(--border-radius-large);
+  box-shadow: 5px 0 25px var(--shadow-color-medium);
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 25px;
+  height: var(--navbar-height);
+  min-height: var(--navbar-height); /* Garantisce altezza */
+  /* background-color: rgba(255, 255, 255, 0.1); */ /* Rimosso per gradiente pulito */
+}
+
+.sidebar-title {
+  font-size: 1.6em;
+  font-weight: 700;
+  white-space: nowrap;
+  opacity: 1;
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+  transform: translateX(0);
+}
+
+.sidebar-toggle-btn {
+  background: none;
+  border: none;
+  color: var(--light-text);
+  font-size: 1.8em;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 50%;
+  transition: background-color var(--transition-fast),
+    transform var(--transition-medium);
+  display: flex; /* Per centrare icona */
+  align-items: center;
+  justify-content: center;
+}
+.sidebar-toggle-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: rotate(90deg);
+}
+/* Animazione icona toggle (Opzionale, richiede JS per classe 'is-toggled') */
+.sidebar-toggle-btn i.fa-bars::before {
+  transition: transform var(--transition-medium);
+}
+.sidebar-toggle-btn.is-toggled i.fa-bars::before {
+  transform: rotate(90deg);
+  content: "\f00d"; /* Cambia in X */
+}
+
+.sidebar-nav {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding-top: 10px;
+}
+/* Custom Scrollbar (Webkit) */
+.sidebar-nav::-webkit-scrollbar {
+  width: 6px;
+}
+.sidebar-nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+.sidebar-nav::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+.sidebar-nav::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.sidebar-nav ul {
+  padding: 0 15px;
+}
+
+.sidebar-nav .nav-link {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  margin-bottom: 8px; /* Spazio tra link */
+  color: rgba(255, 255, 255, 0.8); /* Leggermente trasparente */
+  white-space: nowrap;
+  border-radius: var(--border-radius-medium);
+  transition: all var(--transition-medium);
+  position: relative; /* Per pseudo-elementi */
+  overflow: hidden; /* Per effetti background */
+}
+
+.sidebar-nav .nav-link i {
+  margin-right: 20px;
+  font-size: 1.3em;
+  width: 30px; /* Aumentata larghezza icona */
+  text-align: center;
+  transition: margin-right var(--transition-medium),
+    transform var(--transition-medium);
+  position: relative;
+  z-index: 2;
+}
+
+.sidebar-nav .nav-link span {
+  opacity: 1;
+  transition: opacity var(--transition-fast) ease-out var(--transition-fast); /* Ritardo uscita testo */
+  font-weight: 500;
+  position: relative;
+  z-index: 2;
+}
+
+/* Effetto Hover Link Sidebar */
+.sidebar-nav .nav-link::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%; /* Parte da fuori */
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: var(--border-radius-medium);
+  transition: left var(--transition-medium);
+  z-index: 1;
+}
+.sidebar-nav .nav-link:hover::before {
+  left: 0; /* Entra da sinistra */
+}
+.sidebar-nav .nav-link:hover {
+  color: var(--light-text); /* Testo più bianco */
+  transform: translateX(5px) scale(1.02); /* Leggero spostamento e ingrandimento */
+}
+
+/* Stile Link Attivo Sidebar */
+.sidebar-nav .nav-link.active {
+  background-color: var(--accent-color); /* Colore accento per attivo! */
+  color: var(--light-text);
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(255, 64, 129, 0.4); /* Ombra basata sull'accento */
+}
+.sidebar-nav .nav-link.active::before {
+  /* Disattiva l'effetto hover quando è attivo */
+  left: -100%;
+  background: transparent;
+}
+.sidebar-nav .nav-link.active i {
+  transform: scale(1.1); /* Icona leggermente più grande */
+}
+
+.sidebar-footer {
+  padding: 20px 25px;
+  margin-top: auto; /* Spinge in fondo */
+  /* background-color: rgba(0, 0, 0, 0.1); */ /* Rimosso per gradiente pulito */
+}
+
+.logout-button {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centra contenuto */
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.1); /* Leggermente trasparente */
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: var(--light-text);
+  padding: 12px;
+  font-size: 1em;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: var(--border-radius-medium);
+  transition: all var(--transition-medium);
+  white-space: nowrap;
+}
+.logout-button i {
+  margin-right: 10px;
+  transition: margin-right var(--transition-medium),
+    transform var(--transition-medium);
+}
+.logout-button span {
+  opacity: 1;
+  transition: opacity var(--transition-fast) ease-out var(--transition-fast);
+}
+
+.logout-button:hover {
+  background-color: var(--accent-color); /* Usa accento al hover */
+  border-color: var(--accent-color);
+  transform: scale(1.03); /* Effetto scale */
+  box-shadow: 0 4px 15px rgba(255, 64, 129, 0.5);
+}
+
+/* Stili Sidebar Collassata */
+.sidebar.collapsed {
+  width: var(--sidebar-width-collapsed);
+  border-radius: 0 var(--border-radius-large) var(--border-radius-large) 0; /* Solo a destra */
+}
+
+.sidebar.collapsed .sidebar-title {
+  opacity: 0;
+  transform: translateX(-20px); /* Esce a sinistra */
+  pointer-events: none; /* Non interagibile */
+}
+
+.sidebar.collapsed .nav-link span,
+.sidebar.collapsed .logout-button span {
+  opacity: 0;
+  width: 0;
+  overflow: hidden;
+  transition-delay: 0s; /* Rimuovi ritardo uscita testo */
+}
+
+.sidebar.collapsed .nav-link i,
+.sidebar.collapsed .logout-button i {
+  margin-right: 0;
+}
+.sidebar.collapsed .nav-link,
+.sidebar.collapsed .logout-button {
+  justify-content: center;
+  padding: 15px 0; /* Adatta padding */
+}
+.sidebar.collapsed .sidebar-header {
+  justify-content: center; /* Centra l'icona toggle */
+  padding: 0 10px;
+}
+.sidebar.collapsed .sidebar-nav ul {
+  padding: 0 10px;
+}
+.sidebar.collapsed .nav-link:hover {
+  transform: scale(1.1); /* Scale più evidente quando collassata */
+}
+
+/* Main Content Wrapper */
+.main-wrapper {
+  flex-grow: 1;
+  margin-left: var(--sidebar-width);
+  display: flex;
+  flex-direction: column;
+  transition: margin-left var(--transition-medium) ease-out;
+  padding-top: var(--navbar-height); /* Spazio per navbar fissa */
+  position: relative;
+}
+
+.sidebar.collapsed + .main-wrapper {
+  margin-left: var(--sidebar-width-collapsed);
+}
+
+/* Navbar - Stile Rivisitato */
+.navbar {
+  height: var(--navbar-height);
+  background: rgba(
+    255,
+    255,
+    255,
+    0.8
+  ); /* Bianco semi-trasparente (effetto glass leggero) */
+  backdrop-filter: blur(10px); /* Effetto blur */
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px; /* Più padding laterale */
+  box-shadow: 0 2px 15px var(--shadow-color-soft);
+  position: fixed; /* Navbar Fissa! */
+  top: 0;
+  left: var(--sidebar-width); /* Allineato con fine sidebar */
+  right: 0; /* Occupa tutta larghezza rimanente */
+  z-index: 999;
+  transition: left var(--transition-medium) ease-out;
+}
+.sidebar.collapsed + .main-wrapper .navbar {
+  left: var(
+    --sidebar-width-collapsed
+  ); /* Adatta posizione quando sidebar collassa */
+}
+
+.navbar-page-title {
+  font-size: 1.5em; /* Più grande */
+  font-weight: 600;
+  color: var(--primary-color); /* Usa colore primario */
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 25px; /* Spazio tra elementi a destra */
+}
+
+/* Stile Role Switcher */
+.user-role-switcher {
+  display: flex;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 5px;
+  border-radius: var(--border-radius-large); /* Molto arrotondato */
+}
+.user-role-switcher span {
+  display: none; /* Nascondiamo testo per look più pulito */
+}
+.role-btn {
+  background: transparent;
+  border: none;
+  padding: 6px 15px;
+  border-radius: var(--border-radius-large);
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--dark-text);
+  transition: all var(--transition-medium);
+  position: relative; /* Per effetto active */
+}
+.role-btn.active {
+  background-color: var(--primary-color);
+  color: var(--light-text);
+  box-shadow: 0 2px 8px var(--shadow-color-soft);
+}
+
+/* Stile User Info */
+.navbar-user {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  cursor: pointer; /* Indica che è cliccabile (per futuro dropdown) */
+}
+
+.user-icon {
+  font-size: 2.2em; /* Icona più grande */
+  color: var(--primary-color);
+  margin-right: 12px;
+  transition: transform var(--transition-fast);
+}
+.navbar-user:hover .user-icon {
+  transform: scale(1.1);
+}
+
+#user-greeting {
+  font-weight: 600;
+  color: var(--secondary-color);
+}
+
+/* Content Area */
+.content-area {
+  flex-grow: 1;
+  padding: 30px;
+  background-color: transparent; /* Sfondo gestito da body o wrapper */
+}
+
+/* Animazione Entrata Pagine */
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.page-content {
+  background-color: var(--element-bg);
+  padding: 30px; /* Più padding */
+  border-radius: var(--border-radius-large);
+  box-shadow: 0 5px 20px var(--shadow-color-soft);
+  animation: slideInFromRight 0.5s ease-out forwards; /* Usa la nuova animazione */
+}
+.page-content h1 {
+  color: var(--primary-color);
+  margin-bottom: 25px;
+  font-size: 1.8em;
+  font-weight: 700;
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 10px;
+  display: inline-block; /* Per far funzionare il border-bottom correttamente */
+}
+
+/* Utility Classes */
+.hidden {
+  display: none !important;
+}
+.admin-only {
+  /* Gestito da JS, ma possiamo nasconderlo di default se JS fallisce */
+  /* display: none; */
+}
+
+/* Loading Indicator - Stile Diverso */
+.loading {
+  font-size: 1.5em; /* Più grande */
+  color: var(--primary-color);
+  text-align: center;
+  padding: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 15px;
+  opacity: 0; /* Parte nascosto */
+  animation: fadeInLoading 0.3s 0.1s ease-out forwards; /* Fade in con ritardo */
+}
+@keyframes fadeInLoading {
+  to {
+    opacity: 1;
+  }
+}
+
+.loading i {
+  font-size: 2.5em; /* Icona spinner più grande */
+  animation: spin 1.5s linear infinite; /* Rotazione più veloce */
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Stili Contenuti Specifici (Esempio Dashboard) */
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+  margin-bottom: 30px;
+}
+
+.card {
+  background-color: var(--element-bg);
+  padding: 25px;
+  border-radius: var(--border-radius-medium);
+  box-shadow: 0 4px 15px var(--shadow-color-soft);
+  border: 1px solid var(--border-color);
+  position: relative;
+  overflow: hidden; /* Per effetti interni */
+  transition: transform var(--transition-medium),
+    box-shadow var(--transition-medium);
+}
+.card:hover {
+  transform: translateY(-8px); /* Solleva la card */
+  box-shadow: 0 10px 25px var(--shadow-color-medium);
+}
+/* Linea colorata in alto */
+.card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 6px; /* Altezza linea */
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+}
+.card.accent-border::after {
+  background: linear-gradient(
+    90deg,
+    var(--accent-color),
+    var(--warning-color)
+  ); /* Gradiente diverso per card accent */
+}
+
+.card h3 {
+  margin-bottom: 15px;
+  color: var(--secondary-color);
+  font-size: 1.1em;
+  font-weight: 600;
+}
+.card p {
+  font-size: 2.2em; /* Numeri più grandi */
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-top: 5px;
+}
+
+/* Bottoni - Stile Rivisitato */
+.action-button,
+.btn {
+  padding: 12px 25px; /* Padding maggiore */
+  border: none;
+  border-radius: var(--border-radius-large); /* Molto arrotondati */
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: 600; /* Più bold */
+  transition: all var(--transition-medium);
+  position: relative; /* Per animazione click */
+  overflow: hidden; /* Nasconde ripple/pulse */
+  display: inline-flex; /* Allinea icona e testo */
+  align-items: center;
+  gap: 8px; /* Spazio tra icona e testo */
+  text-transform: uppercase; /* Testo maiuscolo */
+  letter-spacing: 0.5px;
+}
+.action-button i,
+.btn i {
+  /* Stile icone nei bottoni */
+  font-size: 1.1em;
+}
+
+.btn-primary,
+.action-button {
+  background: linear-gradient(
+    45deg,
+    var(--primary-color),
+    var(--primary-color-light)
+  );
+  color: white;
+  box-shadow: 0 4px 15px var(--shadow-color-soft);
+}
+.btn-primary:hover,
+.action-button:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 6px 20px var(--shadow-color-medium);
+}
+
+.action-button.accent {
+  background: linear-gradient(
+    45deg,
+    var(--accent-color),
+    #ff7eb3
+  ); /* Gradiente Rosa */
+  box-shadow: 0 4px 15px rgba(255, 64, 129, 0.4);
+}
+.action-button.accent:hover {
+  box-shadow: 0 6px 20px rgba(255, 64, 129, 0.6);
+}
+
+/* Animazione Click Bottone */
+@keyframes clickPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.is-clicking {
+  animation: clickPulse 0.3s ease-out;
+}
+
+/* Stili Tabelle - Rivisitati */
+.data-table {
+  width: 100%;
+  border-collapse: separate; /* Necessario per border-radius sulle celle */
+  border-spacing: 0; /* Rimuove spazio tra celle */
+  margin-top: 25px;
+  border-radius: var(--border-radius-medium); /* Arrotonda angoli tabella */
+  overflow: hidden; /* Maschera contenuto per angoli */
+  box-shadow: 0 3px 10px var(--shadow-color-soft);
+}
+.data-table th,
+.data-table td {
+  border: none; /* Niente bordi interni */
+  padding: 16px 20px; /* Padding aumentato */
+  text-align: left;
+  vertical-align: middle; /* Allinea verticalmente al centro */
+  border-bottom: 1px solid var(--border-color); /* Solo linea inferiore */
+}
+.data-table th {
+  background-color: var(--primary-color-light); /* Viola chiaro header */
+  color: var(--light-text);
+  font-weight: 600;
+  font-size: 0.95em;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.data-table tbody tr {
+  transition: background-color var(--transition-fast);
+}
+.data-table tbody tr:last-child td {
+  border-bottom: none; /* Rimuovi bordo ultima riga */
+}
+.data-table tbody tr:nth-child(even) {
+  background-color: #f9f4ff; /* Alternanza righe molto leggera */
+}
+.data-table tbody tr:hover {
+  background-color: rgba(106, 17, 203, 0.1); /* Viola molto chiaro al hover */
+}
+/* Stile bottoni azioni tabella */
+.table-actions .btn {
+  padding: 6px 10px; /* Più piccoli */
+  font-size: 0.9em;
+  border-radius: var(--border-radius-small);
+  margin-right: 5px;
+  text-transform: none; /* No maiuscolo qui */
+}
+.table-actions .btn-danger {
+  /* Bottone Elimina */
+  background: linear-gradient(45deg, #e74c3c, #c0392b); /* Gradiente Rosso */
+  color: white;
+}
+
+/* Modal Styling - Rivisitato */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1001;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px); /* Blur sullo sfondo */
+  -webkit-backdrop-filter: blur(5px);
+  animation: fadeInModalBg 0.3s ease-out;
+}
+@keyframes fadeInModalBg {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(5px);
+  }
+}
+
+.modal-content {
+  background-color: var(--element-bg);
+  margin: 8% auto; /* Leggermente più in alto */
+  padding: 35px;
+  border: none; /* Niente bordo */
+  width: 90%;
+  max-width: 650px;
+  border-radius: var(--border-radius-large); /* Molto arrotondato */
+  position: relative;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  animation: slideInModalFromTop 0.5s var(--transition-slow) forwards; /* Animazione bounce */
+  transform: translateY(-50px); /* Stato iniziale per animazione */
+  opacity: 0;
+}
+@keyframes slideInModalFromTop {
+  0% {
+    transform: translateY(-80px) scale(0.9);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.modal-close-btn {
+  color: #999;
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 32px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color var(--transition-fast), transform var(--transition-fast);
+  padding: 5px;
+  line-height: 1; /* Per allineare meglio la X */
+}
+.modal-close-btn:hover {
+  color: var(--accent-color);
+  transform: rotate(90deg) scale(1.1);
+}
+
+.modal h2 {
+  margin-bottom: 25px;
+  color: var(--primary-color);
+  text-align: center;
+  font-size: 1.6em;
+  font-weight: 700;
+}
+
+/* Form Styling - Rivisitato */
+.form-group {
+  margin-bottom: 20px;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--secondary-color);
+  font-size: 0.95em;
+}
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group input[type="email"],
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 14px 18px; /* Padding input aumentato */
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-medium); /* Arrotondamento input */
+  font-size: 1em;
+  transition: border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+  background-color: var(--light-bg); /* Sfondo leggermente diverso */
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.2); /* Glow viola al focus */
+  background-color: var(--element-bg);
+}
+/* Stile Submit button nel form */
+.modal-content form .btn-primary {
+  width: 100%; /* Bottone a larghezza piena */
+  margin-top: 15px;
+  padding: 15px; /* Padding bottone grande */
+  font-size: 1.1em;
+}
+
+/* Responsive (Miglioramenti Leggeri) */
+@media (max-width: 768px) {
+  :root {
+    --sidebar-width: 240px; /* Leggermente più stretta su mobile */
+    --sidebar-width-collapsed: 70px;
+    --navbar-height: 65px;
+  }
+  .sidebar {
+    /* Su mobile, forziamo collassata di default */
+    width: var(--sidebar-width-collapsed);
+    border-radius: 0; /* No bordi arrotondati strani quando è un overlay */
+    transition: transform var(--transition-medium) ease-out;
+    transform: translateX(-100%); /* Nascosta fuori schermo */
+  }
+  .sidebar.open {
+    /* Classe da aggiungere con JS */
+    transform: translateX(0);
+    width: var(--sidebar-width); /* Larghezza piena quando aperta */
+    box-shadow: 5px 0 25px rgba(0, 0, 0, 0.3);
+  }
+  .sidebar.open .sidebar-title,
+  .sidebar.open .nav-link span,
+  .sidebar.open .logout-button span {
+    opacity: 1;
+    width: auto;
+  }
+  .sidebar.open .nav-link i,
+  .sidebar.open .logout-button i {
+    margin-right: 15px;
+  }
+  .sidebar.open .nav-link,
+  .sidebar.open .logout-button {
+    justify-content: flex-start;
+  }
+  .sidebar.open .sidebar-header {
+    justify-content: space-between;
+  }
+
+  .main-wrapper {
+    margin-left: 0; /* Niente margine, sidebar è overlay */
+    padding-top: var(--navbar-height);
+  }
+  .navbar {
+    left: 0; /* Navbar occupa tutta la larghezza */
+    padding: 0 15px;
+  }
+
+  .navbar-page-title {
+    font-size: 1.2em;
+  }
+  .user-role-switcher {
+    display: none;
+  } /* Nascondi switcher su mobile */
+  #user-greeting {
+    display: none;
+  } /* Nascondi nome utente testuale */
+  .user-icon {
+    font-size: 1.8em;
+    margin-right: 0;
+  }
+
+  .content-area {
+    padding: 15px;
+  }
+  .page-content {
+    padding: 20px;
+  }
+
+  /* Il toggle button deve essere sempre visibile sulla navbar mobile */
+  .sidebar-toggle-btn-mobile {
+    background: none;
+    border: none;
+    font-size: 1.6em;
+    cursor: pointer;
+    color: var(--primary-color);
+    display: block; /* Mostra questo */
+    margin-left: -5px; /* Aggiustamento posizionamento */
+  }
+  .navbar-left {
+    /* Contenitore per bottone mobile + titolo */
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  .sidebar .sidebar-toggle-btn {
+    display: none; /* Nascondi quello nella sidebar */
+  }
+
+  .modal-content {
+    margin: 20% auto;
+    width: 95%;
+    padding: 25px;
+  }
+  .modal h2 {
+    font-size: 1.4em;
+  }
+}
+@media (min-width: 769px) {
+  .sidebar-toggle-btn-mobile {
+    display: none; /* Nascondi bottone mobile su desktop */
+  }
+}

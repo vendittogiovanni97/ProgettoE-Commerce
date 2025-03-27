@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestione Magazzino Pro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="code.css" />
+    <!-- Includi Font Awesome per le icone (facile da usare) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- Sidebar -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <h2 class="sidebar-title">Magazzino</h2>
+          <button id="sidebar-toggle" class="sidebar-toggle-btn">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+        <nav class="sidebar-nav">
+          <ul>
+            <li>
+              <a href="#" data-page="dashboard" class="nav-link active"
+                ><i class="fas fa-tachometer-alt fa-fw"></i
+                ><span>Dashboard</span></a
+              >
+            </li>
+            <li>
+              <a href="#" data-page="products" class="nav-link"
+                ><i class="fas fa-box fa-fw"></i><span>Prodotti</span></a
+              >
+            </li>
+            <li>
+              <a href="#" data-page="orders" class="nav-link"
+                ><i class="fas fa-shopping-cart fa-fw"></i
+                ><span>Ordini</span></a
+              >
+            </li>
+            <li>
+              <a href="#" data-page="inventory" class="nav-link"
+                ><i class="fas fa-warehouse fa-fw"></i
+                ><span>Inventario</span></a
+              >
+            </li>
+            <!-- Sezione Admin -->
+            <li class="admin-only">
+              <a href="#" data-page="users" class="nav-link"
+                ><i class="fas fa-users-cog fa-fw"></i
+                ><span>Gestione Utenti</span></a
+              >
+            </li>
+            <li class="admin-only">
+              <a href="#" data-page="settings" class="nav-link"
+                ><i class="fas fa-cogs fa-fw"></i><span>Impostazioni</span></a
+              >
+            </li>
+            <!-- Fine Sezione Admin -->
+            <li>
+              <a href="#" data-page="profile" class="nav-link"
+                ><i class="fas fa-user fa-fw"></i><span>Profilo</span></a
+              >
+            </li>
+          </ul>
+        </nav>
+        <div class="sidebar-footer">
+          <button id="logout-btn" class="logout-button">
+            <i class="fas fa-sign-out-alt fa-fw"></i><span>Logout</span>
+          </button>
+        </div>
+      </aside>
+
+      <!-- Main Content Area -->
+      <div class="main-wrapper">
+        <!-- Navbar -->
+        <nav class="navbar">
+          <div class="navbar-left">
+            <span id="page-title" class="navbar-page-title">Dashboard</span>
+          </div>
+          <div class="navbar-right">
+            <div class="user-role-switcher">
+              <span>Simula Ruolo:</span>
+              <button class="role-btn" data-role="user">User</button>
+              <button class="role-btn" data-role="admin">Admin</button>
+            </div>
+            <div class="navbar-user">
+              <i class="fas fa-user-circle user-icon"></i>
+              <span id="user-greeting">Ciao, Utente!</span>
+              <!-- Potresti aggiungere un dropdown qui -->
+            </div>
+          </div>
+        </nav>
+
+        <!-- Content Area Dinamica -->
+        <main class="content-area" id="content-area">
+          <!-- Contenuto verrà caricato qui da JS -->
+          <div id="loading-indicator" class="loading hidden">
+            <i class="fas fa-spinner fa-spin"></i> Caricamento...
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- Modal Esempio (nascosto di default) -->
+    <div id="add-product-modal" class="modal">
+      <div class="modal-content">
+        <span class="modal-close-btn">&times;</span>
+        <h2>Aggiungi Nuovo Prodotto</h2>
+        <form id="add-product-form">
+          <div class="form-group">
+            <label for="product-name">Nome Prodotto:</label>
+            <input type="text" id="product-name" name="product-name" required />
+          </div>
+          <div class="form-group">
+            <label for="product-sku">SKU:</label>
+            <input type="text" id="product-sku" name="product-sku" required />
+          </div>
+          <div class="form-group">
+            <label for="product-quantity">Quantità:</label>
+            <input
+              type="number"
+              id="product-quantity"
+              name="product-quantity"
+              min="0"
+              required
+            />
+          </div>
+          <button type="submit" class="btn btn-primary">Salva Prodotto</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="code.js"></script>
+  </body>
+</html>
