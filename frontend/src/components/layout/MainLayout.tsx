@@ -1,17 +1,16 @@
-import { ReactNode } from "react";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
+import { Container } from "../../styles/containerStyled";
+import { Outlet } from "react-router-dom";
 
-interface ComponentProps {
-  children: ReactNode;
-}
-
-export const MainLayout = ({ children }: ComponentProps) => {
+export const MainLayout = () => {
   return (
     <>
-      <Sidebar />
-      <Navbar />
-      {children}
+      <Container>
+        <Sidebar />
+        <Navbar />
+        <Outlet /> {/* Questo renderizza i componenti delle route */}
+      </Container>
     </>
   );
 };

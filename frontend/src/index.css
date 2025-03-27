@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@tailwind utilities;
 
 :root {
   /* Palette Cartoon/Futuristic */
@@ -12,9 +13,10 @@
   --element-bg: #ffffff; /* Bianco per card e elementi principali */
   --dark-text: #333; /* Testo scuro ma non nero puro */
   --light-text: #ffffff;
+  --border-color: rgba(0, 0, 0, 0.08); /* Bordo molto sottile e leggero */
+  --shadow-color-soft: rgba(106, 17, 203, 0.15);
 }
 
 * {
-  box-sizing: border-box;
   font-family: "Poppins", sans-serif; /* Nuovo Font */
 }
