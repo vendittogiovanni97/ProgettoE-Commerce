@@ -1,5 +1,5 @@
 import React from "react";
-import StatCard from "./StatCard";
+import StatCard from "../components/Dashboard/StatCard";
 
 const DashboardPage: React.FC = () => {
   return (
@@ -29,7 +29,7 @@ const DashboardPage: React.FC = () => {
         </div>
 
         {/* Testo di Benvenuto */}
-        <p className="text-dark-text mb-6">
+        <p className="mb-6">
           Benvenuto nel tuo coloratissimo pannello di controllo!
         </p>
       </div>

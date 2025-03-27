@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import DashboardPage from "./components/Dashboard/DashboardPage";
 import { MainLayout } from "./components/layout/MainLayout";
-import ProductList from "./components/product-list";
+import DashboardPage from "./pages/DashboardPage";
+import ProductList from "./pages/product-list";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
