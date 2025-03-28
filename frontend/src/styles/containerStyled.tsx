@@ -5,4 +5,5 @@ export const Container = styled.div`
   height: 100vh;
   line-height: 1.1;
   background: #fdf6ff;
+  margin-left: 250px; /* Aggiungi questo */
 `;

@@ -7,17 +7,11 @@ const DashboardPage: React.FC = () => {
       <div className="w-[170%] h-[160%] max-w-8xl bg-white rounded-2xl p-8 shadow-lg mt-[27%]">
         {/* Sezione Titolo */}
         <div className="mb-8">
-          <h1
-            style={{ color: "var(--primary-color)" }}
-            className="text-3xl font-bold"
-          >
+          <h1 className="text-[var(--primary-color)] text-3xl font-bold">
             Dashboard
           </h1>
           {/* Linea sotto il titolo */}
-          <div
-            style={{ background: "var(--accent-color)" }}
-            className="mt-2 h-[2px] w-39 "
-          ></div>
+          <div className="bg-[var(--accent-color)] mt-2 h-[2px] w-39 "></div>
         </div>
 
         {/* Griglia per le Stat Cards */}
@@ -27,8 +21,6 @@ const DashboardPage: React.FC = () => {
           <StatCard title="Valore Inventario" value="€ 182,500" />
           <StatCard title="Visite Oggi" value="890" />
         </div>
-
-        {/* Testo di Benvenuto */}
         <p className="mb-6">
           Benvenuto nel tuo coloratissimo pannello di controllo!
         </p>

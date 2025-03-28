@@ -1,13 +1,6 @@
 import React, { useState } from "react";
-import { Edit2, Trash2 } from "lucide-react";
-
-interface Product {
-  sku: string;
-  name: string;
-  quantity: number;
-  price: number;
-  status: "Disponibile" | "Poche scorte";
-}
+import { Edit2, Trash2, PlusCircle } from "lucide-react";
+import { Product } from "../types/PropsProductList";
 
 const ProductList: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([
@@ -39,72 +32,87 @@ const ProductList: React.FC = () => {
   };
 
   const handleAddProduct = () => {
-    // Placeholder for add product functionality
     alert("Add Product functionality to be implemented");
   };
 
   const handleEditProduct = (sku: string) => {
-    // Placeholder for edit product functionality
     alert(`Edit product with SKU: ${sku}`);
   };
 
   const handleDeleteProduct = (sku: string) => {
-    // Placeholder for delete product functionality
     setProducts(products.filter((product) => product.sku !== sku));
   };
 
   return (
-    <div className="bg-white shadow-md rounded-lg overflow-hidden">
-      <div className="flex justify-between items-center p-4 bg-blue-500 text-white">
-        <h2 className="text-xl font-bold">Elenco Prodotti</h2>
+    <div className="container flex-grow p-[50px] h-[55vh] bg-transparent flex justify-center items-center">
+      <div className="w-[170%] h-[160%] max-w-8xl bg-white rounded-2xl p-8 shadow-lg mt-[27%]">
+        <h2 className="text-[var(--primary-color)] text-3xl font-bold">
+          Elenco Prodotti
+        </h2>
         <button
           onClick={handleAddProduct}
-          className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-full flex items-center"
+          className="flex items-center space-x-2 bg-pink-500 hover:bg-pink-600 text-white font-semibold py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105"
         >
-          + Aggiungi Prodotto
+          <PlusCircle size={30} />
+          <span>Aggiungi Prodotto</span>
         </button>
+
+        <div className="p-7 bg-white rounded-lg shadow-md">
+          <div className="overflow-x-auto">
+            <table className="w-full rounded-lg overflow-hidden">
+              <thead className="bg-[#9b59b6] text-white">
+                <tr>
+                  {["SKU", "Nome", "Quantità", "Prezzo", "Stato", "Azioni"].map(
+                    (header) => (
+                      <th key={header} className="p-4 text-left font-semibold">
+                        {header}
+                      </th>
+                    )
+                  )}
+                </tr>
+              </thead>
+              <tbody>
+                {products.map((product) => (
+                  <tr
+                    key={product.sku}
+                    className="border-b border-gray-200 hover:bg-purple-50 transition duration-200"
+                  >
+                    <td className="p-4">{product.sku}</td>
+                    <td className="p-4 font-medium">{product.name}</td>
+                    <td className="p-4 text-right">{product.quantity}</td>
+                    <td className="p-4 text-right font-semibold">
+                      €{product.price.toFixed(2)}
+                    </td>
+                    <td className="p-4">
+                      <span
+                        className={`px-3 py-1 rounded-full text-xs font-bold ${getStatusColor(
+                          product.status
+                        )}`}
+                      >
+                        {product.status}
+                      </span>
+                    </td>
+                    <td className="p-4 flex justify-center space-x-3">
+                      <button
+                        onClick={() => handleEditProduct(product.sku)}
+                        className="text-purple-500 hover:text-purple-700 transition duration-300 hover:scale-110"
+                      >
+                        <Edit2 size={20} />
+                      </button>
+                      <button
+                        onClick={() => handleDeleteProduct(product.sku)}
+                        className="text-red-500 hover:text-red-700 transition duration-300 hover:scale-110"
+                      >
+                        <Trash2 size={20} />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
-      <table className="w-full">
-        <thead>
-          <tr className="bg-purple-500 text-white">
-            <th className="p-3 text-left">SKU</th>
-            <th className="p-3 text-left">Nome</th>
-            <th className="p-3 text-right">Quantità</th>
-            <th className="p-3 text-right">Prezzo</th>
-            <th className="p-3 text-left">Stato</th>
-            <th className="p-3 text-center">Azioni</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map((product) => (
-            <tr key={product.sku} className="border-b hover:bg-gray-100">
-              <td className="p-3">{product.sku}</td>
-              <td className="p-3">{product.name}</td>
-              <td className="p-3 text-right">{product.quantity}</td>
-              <td className="p-3 text-right">€{product.price.toFixed(2)}</td>
-              <td className="p-3">
-                <span className={`font-bold ${getStatusColor(product.status)}`}>
-                  {product.status}
-                </span>
-              </td>
-              <td className="p-3 flex justify-center space-x-2">
-                <button
-                  onClick={() => handleEditProduct(product.sku)}
-                  className="text-purple-500 hover:text-purple-700"
-                >
-                  <Edit2 size={20} />
-                </button>
-                <button
-                  onClick={() => handleDeleteProduct(product.sku)}
-                  className="text-purple-500 hover:text-purple-700"
-                >
-                  <Trash2 size={20} />
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
     </div>
   );
 };

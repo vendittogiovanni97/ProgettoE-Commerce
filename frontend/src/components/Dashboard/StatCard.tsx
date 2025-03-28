@@ -33,17 +33,10 @@ const StatCard: React.FC<StatCardProps> = ({
 
       {/* Contenuto della Card */}
       <div className="p-6 pt-8">
-        {/* Padding aumentato in alto per fare spazio al bordo */}
-        <h3
-          style={{ color: "var(--secondary-color)" }}
-          className="font-semibold mb-2"
-        >
+        <h3 className="text-[var(--secondary-color)] font-semibold mb-2">
           {title}
         </h3>
-        <p
-          style={{ color: "var(--primary-color)" }}
-          className="text-primary text-4xl font-bold"
-        >
+        <p className="text-[var(--primary-color)] text-primary text-4xl font-bold">
           {value}
         </p>
       </div>
