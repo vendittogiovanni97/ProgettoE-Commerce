@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { sidebarLinks } from "../../types/sideBarProps";
+import React, { useEffect } from "react";
+import { sidebarLinks, SidebarProps } from "../../types/sideBarProps";
 import {
   baseClasses,
   activeClasses,
@@ -7,14 +7,10 @@ import {
 } from "../../utils/sidebarUtils";
 import { NavLink } from "react-router-dom";
 
-const Sidebar: React.FC = () => {
-  // Stato per tenere traccia se la sidebar è aperta o chiusa
-  const [isOpen, setIsOpen] = useState(true);
-
-  // Funzione per cambiare lo stato della sidebar
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
-  };
+const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
+  useEffect(() => {
+    localStorage.setItem("sidebarOpen", JSON.stringify(isOpen));
+  }, [isOpen]);
 
   return (
     <aside

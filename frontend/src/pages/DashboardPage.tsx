@@ -3,15 +3,15 @@ import StatCard from "../components/Dashboard/StatCard";
 
 const DashboardPage: React.FC = () => {
   return (
-    <div className="container flex-grow p-[50px] h-[60vh] bg-transparent flex justify-center items-center">
-      <div className="w-[170%] h-[160%] max-w-8xl bg-white rounded-2xl p-8 shadow-lg mt-[27%]">
+    <div className="w-full p-6 pt-24">
+      <div className="w-full max-w-6xl mx-auto bg-white rounded-2xl p-8 shadow-lg">
         {/* Sezione Titolo */}
         <div className="mb-8">
           <h1 className="text-[var(--primary-color)] text-3xl font-bold">
             Dashboard
           </h1>
           {/* Linea sotto il titolo */}
-          <div className="bg-[var(--accent-color)] mt-2 h-[2px] w-39 "></div>
+          <div className="bg-[var(--accent-color)] mt-2 h-[2px] w-39"></div>
         </div>
 
         {/* Griglia per le Stat Cards */}

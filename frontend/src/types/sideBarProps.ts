@@ -4,6 +4,11 @@ export interface SidebarLink {
   label: string;
 }
 
+export interface SidebarProps {
+  isOpen: boolean;
+  toggleSidebar: () => void;
+}
+
 export const sidebarLinks: SidebarLink[] = [
   { path: "/", icon: "fa-tachometer-alt", label: "Dashboard" },
   { path: "/products", icon: "fa-box", label: "Prodotti" },
