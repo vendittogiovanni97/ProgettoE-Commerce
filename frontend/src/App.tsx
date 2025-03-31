@@ -3,7 +3,7 @@ import { MainLayout } from "./components/layout/MainLayout";
 import DashboardPage from "./pages/DashboardPage";
 import LoginPage from "./pages/LoginPages";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import ProductList from "./pages/product-list";
+import ProductList from "./pages/Product-list";
 
 function App() {
   return (
