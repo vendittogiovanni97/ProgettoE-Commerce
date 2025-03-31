@@ -1,11 +1,27 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { AuthContext } from "../context/Auth.Provider";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
 
-  const handleSubmit = (e: { preventDefault: () => void }) => {
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
+
+    const dataLogin = {
+      email: email, // Correggi qui
+      password: password, // E qui
+    };
+    const response = await login(dataLogin);
+    if (response) {
+      console.log("Login Successful");
+      navigate("/dashboard");
+    } else {
+      alert("Credenziali non valide");
+    }
     // Add login logic here
     console.log("Login attempted", { email, password });
   };
