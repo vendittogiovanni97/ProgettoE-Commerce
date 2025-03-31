@@ -1,114 +1,62 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { createContext, PropsWithChildren, useState } from "react";
+import { LoginForm } from "../types/typesFetch/Login.Form.Type";
+import { RegisterForm } from "../types/typesFetch/Register.Form.Type";
+import { AuthContextType } from "../types/typesContext/Auth.Context.type";
+import { backendFetch } from "../services/api";
 
-interface User {
-  id: string;
-  email: string;
-  role: string;
-  name: string;
-}
+export const AuthContext = createContext<AuthContextType>({
+  login: async (data: LoginForm) => false,
+  register: async (data: RegisterForm) => false,
+  isAuthenticated: false,
+  userLogged: null,
+});
 
-interface AuthContextType {
-  user: User | null;
-  isAuthenticated: boolean;
-  isLoading: boolean;
-  login: (email: string, password: string) => Promise<void>;
-  register: (email: string, password: string, name: string) => Promise<void>;
-  logout: () => void;
-}
+export const AuthProvider = ({ children }: PropsWithChildren) => {
+  const [userLogged, setUserLogged] = useState(null);
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+  const login = async (data: LoginForm) => {
+    console.log("data", data);
+    const { fetchResult, responseBody, responseDetails } = await backendFetch(
+      "/account/login",
+      "post",
+      data
+    );
+    console.log("details", responseDetails);
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    // Controlla se c'è un token salvato e valida la sessione
-    const token = localStorage.getItem("token");
-    if (token) {
-      validateToken(token);
+    if (fetchResult.ok) {
+      setUserLogged(responseBody.data);
+      return true;
     } else {
-      setIsLoading(false);
+      return false;
     }
-  }, []);
+  };
 
-  const validateToken = async (token: string) => {
+  const register = async (data: RegisterForm) => {
     try {
-      // Qui implementeremo la validazione del token con il backend
-      setIsLoading(false);
-    } catch (error) {
-      localStorage.removeItem("token");
-      setUser(null);
-      setIsLoading(false);
-    }
-  };
-  const login = async (email: string, password: string) => {
-    // Qui implementeremo la chiamata API di login
-    const response = await fetch("/api/auth/login", {
-      method: "POST", 
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
+      const { fetchResult, responseBody } = await backendFetch(
+        "/account/register",
+        "post",
+        data
+      );
+      console.log("Risposta registrazione", fetchResult.status, responseBody);
 
-    if (!response.ok) {
-      throw new Error("Login failed");
-    }
-
-    const data = await response.json();
-    localStorage.setItem("token", data.token);
-    setUser(data.user);
-  };
-
-  const register = async (email: string, password: string, name: string) => {
-      // Qui implementeremo la chiamata API di registrazione
-      const response = await fetch("/api/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password, name }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Registration failed");
+      if (fetchResult.ok) {
+        return true;
+      } else {
+        console.error("Errore server:", responseBody);
+        return false;
       }
-
-      const data = await response.json();
-      localStorage.setItem("token", data.token);
-      setUser(data.user);
     } catch (error) {
-      throw error;
+      console.error("Errore durante la registrazione:", error);
+      return false;
     }
   };
-
-  const logout = () => {
-    localStorage.removeItem("token");
-    setUser(null);
-  };
-
   return (
     <AuthContext.Provider
-      value={{
-        user,
-        isAuthenticated: !!user,
-        isLoading,
-        login,
-        register,
-        logout,
-      }}
+      value={{ isAuthenticated: !!userLogged, userLogged, login, register }}
     >
       {children}
     </AuthContext.Provider>
   );
-
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error("useAuth must be used within an AuthProvider");
-  }
-  return context;
 };
