@@ -12,4 +12,5 @@ export type AuthContextType = {
   register: (data: RegisterForm) => Promise<boolean>;
   isAuthenticated: boolean;
   userLogged: User | null;
+  isLoading: boolean;
 };

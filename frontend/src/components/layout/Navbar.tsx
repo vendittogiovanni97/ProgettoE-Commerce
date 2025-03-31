@@ -71,7 +71,7 @@ const Navbar: React.FC<ExtendedNavbarProps> = ({
         <NotificationCenter />
 
         <div className="flex items-center gap-3 cursor-pointer group">
-          <i className="text-[var(--primary-color)] fas fa-user-circle text-primary text-3xl md:text-4xl group-hover:scale-110 transition-transform"></i>
+          <i className="text-[var(--primary-color)] fas fa-user-circle text-3xl md:text-4xl group-hover:scale-110 transition-transform"></i>
           <span className="text-[var(--secondary-color)] hidden md:inline font-semibold">
             {userName ? `Ciao, ${userName}` : "Ciao, Giovanni!"}
           </span>

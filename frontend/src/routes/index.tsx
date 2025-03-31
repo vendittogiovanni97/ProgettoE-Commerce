@@ -1,31 +1,36 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import LoginPage from "../pages/LoginPages";
 import Dashboard from "../pages/DashboardPage";
 import ProtectedRoute from "./ProtectedRoute";
-import { AuthProvider } from "../context/AuthContext";
+import { AuthProvider } from "../context/Auth.Provider";
+import { MainLayout } from "../components/layout/MainLayout";
+import ProductList from "../pages/Product-list";
 
 const AppRoutes: React.FC = () => {
   return (
     <AuthProvider>
-      <Router>
-        <Routes>
+      <Routes>
+        <Route element={<MainLayout />}>
           {/* Route pubbliche */}
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" />
 
           {/* Route protette */}
           <Route
-            path="/dashboard"
+            path="/"
             element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
+              //<ProtectedRoute>
+              <Dashboard />
+              //</ProtectedRoute>
+            }
+          />
+          <Route
+            path="/products"
+            element={
+              //<ProtectedRoute>
+              <ProductList />
+              //</ProtectedRoute>
             }
           />
 
@@ -38,14 +43,13 @@ const AppRoutes: React.FC = () => {
               </ProtectedRoute>
             }
           />
-
           {/* Redirect alla dashboard per la root */}
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
 
           {/* Route 404 */}
           <Route path="*" element={<Navigate to="/dashboard" replace />} />
-        </Routes>
-      </Router>
+        </Route>
+      </Routes>
     </AuthProvider>
   );
 };

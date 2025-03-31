@@ -78,7 +78,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
         <button
           className={`flex items-center ${isOpen ? "justify-center" : ""} ${
             !isOpen ? "w-10 h-10 p-0" : "w-full p-3"
-          } rounded-4xl bg-white/10 border-2 border-white/30 hover:bg-accent hover:border-accent hover:scale-105 hover:shadow-lg transition-all duration-300 whitespace-nowrap`}
+          } rounded-4xl bg-white/10 border-2 border-white/30 hover:bg-[#ff4081] hover:border-[#ff4081] hover:scale-105 hover:shadow-lg transition-all duration-300 whitespace-nowrap`}
         >
           <i className="fas fa-sign-out-alt fa-fw mr-3"></i>
           {isOpen && <span className="font-medium">Logout</span>}
