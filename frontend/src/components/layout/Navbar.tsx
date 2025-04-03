@@ -25,6 +25,9 @@ const Navbar: React.FC<ExtendedNavbarProps> = ({
     const pathTitleMap: { [key: string]: string } = {
       "/": "Dashboard",
       "/products": "Prodotti",
+      "/orders": "Gestione Ordini",
+      "/inventory": "Inventario Scorte",
+      "/usersManagement": "Gestione Utenti",
     };
 
     const pathname = location.pathname;

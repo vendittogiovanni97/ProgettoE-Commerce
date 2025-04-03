@@ -44,8 +44,8 @@ const ProductList: React.FC = () => {
   };
 
   return (
-    <div className="container flex-grow p-[50px] h-[55vh] bg-transparent flex justify-center items-center">
-      <div className="w-[170%] h-[160%] max-w-8xl bg-white rounded-2xl p-8 shadow-lg mt-[27%]">
+    <div className="w-full p-6 pt-24">
+      <div className="w-full max-w-6xl mx-auto bg-white rounded-2xl p-8 shadow-lg">
         <h2 className="text-[var(--primary-color)] text-3xl font-bold">
           Elenco Prodotti
         </h2>

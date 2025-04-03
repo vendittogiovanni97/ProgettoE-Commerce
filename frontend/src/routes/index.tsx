@@ -6,6 +6,9 @@ import ProtectedRoute from "./ProtectedRoute";
 import { AuthProvider } from "../context/Auth.Provider";
 import { MainLayout } from "../components/layout/MainLayout";
 import ProductList from "../pages/Product-list";
+import OrdersPage from "../pages/OrdersPage";
+import InventoryPages from "../pages/InventoryPage";
+import UsersManagement from "../pages/UsersManagement";
 
 const AppRoutes: React.FC = () => {
   return (
@@ -30,6 +33,30 @@ const AppRoutes: React.FC = () => {
             element={
               //<ProtectedRoute>
               <ProductList />
+              //</ProtectedRoute>
+            }
+          />
+          <Route
+            path="/orders"
+            element={
+              //<ProtectedRoute>
+              <OrdersPage />
+              //</ProtectedRoute>
+            }
+          />
+          <Route
+            path="/inventory"
+            element={
+              //<ProtectedRoute>
+              <InventoryPages />
+              //</ProtectedRoute>
+            }
+          />
+          <Route
+            path="/usersManagement"
+            element={
+              //<ProtectedRoute>
+              <UsersManagement />
               //</ProtectedRoute>
             }
           />
