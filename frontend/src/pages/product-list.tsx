@@ -93,18 +93,17 @@ const ProductList: React.FC = () => {
                       </span>
                     </td>
                     <td className="p-4 flex justify-center space-x-3">
-                      <button
+                      <Edit2
                         onClick={() => handleEditProduct(product.sku)}
                         className="text-purple-500 hover:text-purple-700 transition duration-300 hover:scale-110"
-                      >
-                        <Edit2 size={20} />
-                      </button>
-                      <button
+                        size={20}
+                      />
+
+                      <Trash2
                         onClick={() => handleDeleteProduct(product.sku)}
                         className="text-red-500 hover:text-red-700 transition duration-300 hover:scale-110"
-                      >
-                        <Trash2 size={20} />
-                      </button>
+                        size={20}
+                      />
                     </td>
                   </tr>
                 ))}
