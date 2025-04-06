@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import Products from "../../models/productsSchema";
 import { AppError } from "../../types/appError";
 import { responseStatus } from "../../constants/statusEnum";
 import { ErrorCodes } from "../../constants/errorCodes";
@@ -8,7 +7,7 @@ import Users from "../../models/usersSchema";
 
 const allUsers = async (request: Request, response: Response) => {
   try {
-    const users = await Users.find();
+    const users = await Users.find().select("-__v");
 
     if (!users) {
       throw new AppError(

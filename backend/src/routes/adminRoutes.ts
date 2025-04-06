@@ -8,8 +8,8 @@ const adminRouter = (app: Router) => {
   const router = Router();
 
   router.post("/product", [isAdmin], createProduct);
-  router.get("users", [isAdmin], allUsers);
-  router.delete("product/:id", [isAdmin], deleteProduct);
+  router.get("/users", [isAdmin], allUsers);
+  router.delete("/product/:id", [isAdmin], deleteProduct);
   app.use("/", router);
 };
 
