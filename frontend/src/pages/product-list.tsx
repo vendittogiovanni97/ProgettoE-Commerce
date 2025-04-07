@@ -72,9 +72,11 @@ const ProductList: React.FC = () => {
                   >
                     <td className="p-4">{product._id}</td>
                     <td className="p-4 font-medium">{product.name}</td>
-                    <td className="p-4 text-right">{product.quantity}</td>
-                    <td className="p-4 text-right font-semibold">
+                    <td className="p-4 text-right">
                       €{product.price.toFixed(2)}
+                    </td>
+                    <td className="p-4 text-right font-semibold">
+                      {product.quantity}
                     </td>
                     <td className="p-4">{product.category}</td>
                     <td className="p-4">
