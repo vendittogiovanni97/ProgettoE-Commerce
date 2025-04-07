@@ -14,12 +14,12 @@ const AppRoutes: React.FC = () => {
   return (
     <AuthProvider>
       <Routes>
-        <Route element={<MainLayout />}>
-          {/* Route pubbliche */}
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" />
+        {/* Route pubbliche */}
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" />
 
-          {/* Route protette */}
+        {/* Route protette */}
+        <Route element={<MainLayout />}>
           <Route
             path="/"
             element={
@@ -71,7 +71,7 @@ const AppRoutes: React.FC = () => {
             }
           />
           {/* Redirect alla dashboard per la root */}
-          <Route path="/" element={<Navigate to="/dashboard" replace />} />
+          <Route path="/login" element={<Navigate to="/login" replace />} />
 
           {/* Route 404 */}
           <Route path="*" element={<Navigate to="/dashboard" replace />} />

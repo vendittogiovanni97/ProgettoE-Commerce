@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     setIsLoading(true);
     console.log("data", data);
     const { fetchResult, responseBody, responseDetails } = await backendFetch(
-      "/account/login",
+      "/login",
       "post",
       data
     );

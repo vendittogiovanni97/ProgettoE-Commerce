@@ -1,7 +1,20 @@
 export interface Product {
-  sku: string;
+  _id: string;
   name: string;
-  quantity: number;
   price: number;
-  status: "Disponibile" | "Poche scorte";
+  quantity: number;
+  category: string;
+  disponibility: boolean;
+  timestamp: string;
 }
+
+export const tableHeaders = [
+  { key: "_id", label: "ID" },
+  { key: "name", label: "Nome" },
+  { key: "price", label: "Prezzo" },
+  { key: "quantity", label: "Quantità" },
+  { key: "category", label: "Categoria" },
+  { key: "disponibility", label: "Disponibilità" },
+  { key: "timestamp", label: "Data" },
+  { key: "actions", label: "Azioni" },
+];

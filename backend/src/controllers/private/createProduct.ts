@@ -3,25 +3,12 @@ import Products from "../../models/productsSchema";
 import { AppSuccess } from "../../types/succesType";
 import { responseStatus } from "../../constants/statusEnum";
 import { Request, Response } from "express";
-import { ErrorCodes } from "../../constants/errorCodes";
-import { AppError } from "../../types/appError";
 
 const createProduct = async (
   request: Request<{}, unknown, Product>,
   response: Response
 ): Promise<void> => {
   const body = request.body;
-
-  // Validazione dei dati in ingresso
-  /*if (!body.name || !body.quantity || !body.price || !body.category) {
-    throw new AppError(
-      responseStatus.BAD_REQUEST,
-      ErrorCodes.INVALID_INPUT,
-      "Nome, quantità, prezzo e categoria sono obbligatori"
-    );
-  } 
-  */
-
   try {
     const newProduct = await Products.create({
       name: body.name,

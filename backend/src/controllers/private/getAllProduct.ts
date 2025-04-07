@@ -7,7 +7,7 @@ import { AppSuccess } from "../../types/succesType";
 
 const getAllProduct = async (request: Request, response: Response) => {
   try {
-    const products = await Products.find();
+    const products = await Products.find().select("-__v");
 
     if (!products || products.length === 0) {
       throw new AppError(

@@ -26,7 +26,7 @@ app.use(
     cookie: {
       maxAge: 86400000,
       sameSite: "strict",
-      secure: process.env.NODE_ENV === 'production',
+      secure: process.env.NODE_ENV === "production",
     },
   })
 );
@@ -39,7 +39,7 @@ app.use((request, response, next) => {
 app.use(
   cors({
     origin: process.env.ORIGIN,
-    //credentials: true,
+    credentials: true,
   })
 );
 
